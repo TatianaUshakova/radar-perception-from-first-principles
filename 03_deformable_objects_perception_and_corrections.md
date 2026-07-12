@@ -1,0 +1,1 @@
+initial draft is under verification to make each statement precise and accurate -- notes to be uploaded soon
