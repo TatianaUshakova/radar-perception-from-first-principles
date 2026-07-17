@@ -1,4 +1,4 @@
-# Radar Imaging & Calibration: First-Principles Notes
+# Radar As A Primary Modality Perception: First-Principles Notes
 
 This repo builds a first-principles picture of radar-only perception from a practical perspective: (1) develop a mathematical model of the radar with its assumptions explicit, so that methods can be evaluated and adapted to specialized cases, and (2) evaluate the tradeoffs and limitations involved in choosing between them.
 
@@ -75,4 +75,4 @@ A few ideas carry all the notes:
 
 ### Conventions
 
-All notes share the same notation: phases written as $\exp(-j\,\cdot)$ for received signals, vectors with arrows ($\vec x$), dot products as $\vec u^{\top}\vec d$, two-way path phase $\frac{4\pi}{\lambda} = 2\pi f_0 \cdot \frac{2}{c}$, chirp slope $\alpha$ and start frequency $f_0$. Overall amplitude constants don't matter for the algorithms and are dropped without comment: imaging restores relative amplitudes and phases, not absolute values.
+All notes share the same notation: phases written as $\exp(-j\cdot)$ for received signals, vectors with arrows ($\vec x$), dot products as $\vec u^{\top}\vec d$, two-way path phase $\frac{4\pi}{\lambda} = 2\pi f_0 \cdot \frac{2}{c}$, chirp slope $\alpha$ and start frequency $f_0$. Overall amplitude constants don't matter for the algorithms and are dropped without comment: imaging restores relative amplitudes and phases, not absolute values.

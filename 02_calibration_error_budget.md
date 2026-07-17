@@ -8,19 +8,19 @@ Angle estimation reads direction out of phase differences across the virtual arr
 
 The contribution of a single scatterer to the (range-compressed) signal is its reflectivity with the carrier phase of the two-way path:
 
-$$S \approx \sigma\,\frac{1}{R_0^2}\exp\left(-j\frac{4\pi}{\lambda}R_0\right), \qquad \lambda = \frac{c}{f_0},$$
+$$S \approx \sigma\frac{1}{R_0^2}\exp\left(-j\frac{4\pi}{\lambda}R_0\right), \qquad \lambda = \frac{c}{f_0},$$
 
-where $R_0 = \|\mathbf R_0\|$ and $\mathbf R_0$ is the line-of-sight vector from the array center to the scatterer. For the channel whose virtual element sits at offset $\mathbf d_k$ from the array center, the path is taken from the element rather than from the center, so to first order in the small offset
+where $R_0 = \|\mathbf{R}_0\|$ and $\mathbf{R}_0$ is the line-of-sight vector from the array center to the scatterer. For the channel whose virtual element sits at offset $\mathbf{d}_k$ from the array center, the path is taken from the element rather than from the center, so to first order in the small offset
 
-$$R_k = \|\mathbf R_0 + \mathbf d_k\| \approx R_0 + \mathbf u^{\top}\mathbf d_k, \qquad \mathbf u = \frac{\mathbf R_0}{R_0},$$
+$$R_k = \|\mathbf{R}_0 + \mathbf{d}_k\| \approx R_0 + \mathbf{u}^{\top}\mathbf{d}_k, \qquad \mathbf{u} = \frac{\mathbf{R}_0}{R_0},$$
 
-and the channel-dependent part of the phase is $\exp\left(-j\frac{4\pi}{\lambda}\mathbf u^{\top}\mathbf d_k\right)$. Collecting everything independent of the channel into a single factor $S_0$ (reflectivity, spreading, the common range phase), the ideal channel response is
+and the channel-dependent part of the phase is $\exp\left(-j\frac{4\pi}{\lambda}\mathbf{u}^{\top}\mathbf{d}_k\right)$. Collecting everything independent of the channel into a single factor $S_0$ (reflectivity, spreading, the common range phase), the ideal channel response is
 
-$$S_k^{\text{ideal}} = S_0\,\exp\left(-j\frac{4\pi}{\lambda}\,\mathbf u^{\top}\mathbf d_k\right), \qquad S_0 = \sigma\,\frac{1}{R_0^2}\,e^{-j\frac{4\pi}{\lambda}R_0}.$$
+$$S_k^{\text{ideal}} = S_0\exp\left(-j\frac{4\pi}{\lambda}\mathbf{u}^{\top}\mathbf{d}_k\right), \qquad S_0 = \sigma\frac{1}{R_0^2}e^{-j\frac{4\pi}{\lambda}R_0}.$$
 
 Uncalibrated hardware multiplies each channel by its unknown complex gain, so the measured response is
 
-$$S_k = g_k\, S_0\, \exp\!\left(-j\frac{4\pi}{\lambda}\,\mathbf u^{\top}\mathbf d_k\right),$$
+$$S_k = g_k S_0 \exp\left(-j\frac{4\pi}{\lambda}\mathbf{u}^{\top}\mathbf{d}_k\right),$$
 
 with $g_k \in \mathbb C$ the hardware error to be calibrated out. If the electronics make the error separable, then $g_k = g_{\text{tx}(k)} g_{\text{rx}(k)}$, but nothing below in derivations requires that.
 
@@ -28,11 +28,11 @@ Uncalibrated $g_k$ phases are indistinguishable from geometric phases: they masq
 
 ## The procedure
 
-The calibration commonly happens by using a reference scatterer in a known position. In the simplest case we place a single strong (ideally point) scatterer at a known direction $\mathbf u_0$ and record $S_k$. 
+The calibration commonly happens by using a reference scatterer in a known position. In the simplest case we place a single strong (ideally point) scatterer at a known direction $\mathbf{u}_0$ and record $S_k$. 
 
 1. With the signal that comes from calibration target we can recover the calibration correcting matrix $g_k$by multiplying the signal the conjugate of the known geometric phase:
 
-$$a_k = S_k \exp\!\left(+j\frac{4\pi}{\lambda}\,\mathbf u_0^{\top}\mathbf d_k\right) = g_k\, S_0.$$
+$$a_k = S_k \exp\left(+j\frac{4\pi}{\lambda}\mathbf{u}_0^{\top}\mathbf{d}_k\right) = g_k S_0.$$
 
 2. Then we normalize it to a reference element to get rid of the common factor $S_0$:
 
@@ -42,7 +42,7 @@ Correcting future data as $S_k^{\text{corr}} = S_k / \hat g_k$ then restores the
 
 Note that normalizing without first stripping the geometry doesnt give us desired result and leaves the ratio contaminated by a direction-dependent term,
 
-$$\frac{S_k}{S_1} = \frac{g_k}{g_1}\exp\!\left(-j\frac{4\pi}{\lambda}\,\mathbf u_0^{\top}(\mathbf d_k - \mathbf d_1)\right),$$
+$$\frac{S_k}{S_1} = \frac{g_k}{g_1}\exp\left(-j\frac{4\pi}{\lambda}\mathbf{u}_0^{\top}(\mathbf{d}_k - \mathbf{d}_1)\right),$$
 
 which vanishes only in the special case where the target sits exactly on boresight and the array lies in the plane perpendicular to the line of sight. Even small variation from this special case from unprecise placement gives an additional error that lead to a calibration bias.
 
@@ -50,23 +50,23 @@ which vanishes only in the special case where the target sits exactly on boresig
 
 The important part of the procedure and the analysis is to understnad how big an error of calibration is produced from different imperfectoins, e.g. how precisely we should place a target, measure position and how close to point-like object the scatterer should be.
 
-To analyse this, lets perturb the direction $\mathbf u_0$ and the element positions $\mathbf d_k$ by $\Delta\mathbf u$ and $\Delta\mathbf d_k$ and expand to first order. The geometric phase applied in step 1 is then wrong by
+To analyse this, lets perturb the direction $\mathbf{u}_0$ and the element positions $\mathbf{d}_k$ by $\Delta\mathbf{u}$ and $\Delta\mathbf{d}_k$ and expand to first order. The geometric phase applied in step 1 is then wrong by
 
-$$\delta\phi_k = \frac{4\pi}{\lambda}\left(\mathbf u_0^{\top}\Delta\mathbf d_k + \Delta\mathbf u^{\top}\mathbf d_k\right),$$
+$$\delta\phi_k = \frac{4\pi}{\lambda}\left(\mathbf{u}_0^{\top}\Delta\mathbf{d}_k + \Delta\mathbf{u}^{\top}\mathbf{d}_k\right),$$
 
 and after normalization the residual error on element $k$ relative to the reference is
 
-$$\delta\phi_k^{\text{rel}} = \frac{4\pi}{\lambda}\left(\mathbf u_0^{\top}\Delta\mathbf b_k + \Delta\mathbf u^{\top}\mathbf b_k\right), \qquad \mathbf b_k = \mathbf d_k - \mathbf d_1.$$
+$$\delta\phi_k^{\text{rel}} = \frac{4\pi}{\lambda}\left(\mathbf{u}_0^{\top}\Delta\mathbf{b}_k + \Delta\mathbf{u}^{\top}\mathbf{b}_k\right), \qquad \mathbf{b}_k = \mathbf{d}_k - \mathbf{d}_1.$$
 
-Element-position errors $\Delta\mathbf b_k$ are a manufacturing question; the setup-dependent term is the second one. If the dominant setup error is a mispointing $\delta\theta$ of the target direction along the array axis, and $b$ is the baseline from the reference to the farthest element,
+Element-position errors $\Delta\mathbf{b}_k$ are a manufacturing question; the setup-dependent term is the second one. If the dominant setup error is a mispointing $\delta\theta$ of the target direction along the array axis, and $b$ is the baseline from the reference to the farthest element,
 
-$$\big|\delta\phi^{\text{rel}}\big| \approx \frac{4\pi}{\lambda}\, b \sin(\delta\theta).$$
+$$\big|\delta\phi^{\text{rel}}\big| \approx \frac{4\pi}{\lambda} b \sin(\delta\theta).$$
 
 ## Inverting the budget to estimate required placement precision and maximal scatterer size 
 
 The valuable direction from this formula is to estimate the required setup precision from fixed residual phase we can tolerate:
 
-$$\delta\theta \lesssim \frac{\lambda\,\delta\phi_{\max}}{4\pi b}.$$
+$$\delta\theta \lesssim \frac{\lambda\delta\phi_{\max}}{4\pi b}.$$
 
 At 77 GHz, $\lambda \approx 3.9$ mm and $\frac{4\pi}{\lambda} \approx 3.2\times 10^{3}$ rad/m. For a virtual aperture of $b = 5$ cm:
 
