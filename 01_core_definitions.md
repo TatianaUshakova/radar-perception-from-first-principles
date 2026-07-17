@@ -10,13 +10,13 @@ The overall picture to have in mind is the following: pulses that come back to t
 
 If a radar is trying to image a surface with reflectivity $\sigma(\vec x)$, where $\vec x$ is the position of a point on the surface, while the radar is in position $x_r$, at time $t$ it receives a signal
 
-$$S(x_r, t) = \int d^2x \sigma(\mathbf{x})\frac{1}{R^2}\exp\left(-j2\pi\frac{2R}{c}f_0\right)p(t-\tau)$$
+$$S(x_r, t) = \int d^2x \sigma(\vec{x})\frac{1}{R^2}\exp\left(-j2\pi\frac{2R}{c}f_0\right)p(t-\tau)$$
 
 where $p(t-\tau)$ is the phase of the transmitted signal at the moment of emission $t-\tau$ of the part of the signal that traveled to the point and back, covering distance $2R$, $R = |\vec x - \vec x_r|$, in time $\tau = 2R/c$.
 
 The engineering of the radar is commonly made to multiply this incoming signal by the conjugate of the outgoing one (which is done at the hardware level), $p^{*}(t)$, for convenience reasons we will see later, so the signal is
 
-$$S(x_r, t) = \int d^2x \sigma(\mathbf{x})\frac{1}{R^2}\exp\left(-j2\pi\frac{2R}{c}f_0\right)p(t-\tau)p^{*}(t)$$
+$$S(x_r, t) = \int d^2x \sigma(\vec{x})\frac{1}{R^2}\exp\left(-j2\pi\frac{2R}{c}f_0\right)p(t-\tau)p^{*}(t)$$
 
 Another common engineering trick of the radar is to emit a pulse with linearly increasing frequency, from $f_0$ to $f_1$ at some constant rate $\alpha$ (the duration is therefore $T_c = (f_1-f_0)/\alpha$). This is needed for resolution of signals reflected from objects at different distances from the radar, as we will see later, so the phase has the form
 
@@ -25,15 +25,15 @@ $$p(t) = e^{j \cdot 2\pi \int(f_0 +\alpha t) dt}=  e^{j \cdot 2\pi (f_0 t + \tfr
 so that the signal takes the form
 
 $$S(x_r, t)
-= \int d^2x \sigma(\mathbf{x})\frac{1}{R^2}\exp\left(-j2\pi\tau f_0 - j2\pi \alpha(\tau^2/2 - t\tau)\right)$$
+= \int d^2x \sigma(\vec{x})\frac{1}{R^2}\exp\left(-j2\pi\tau f_0 - j2\pi \alpha(\tau^2/2 - t\tau)\right)$$
 
 Such an at first glance arbitrary choice of both linearly increasing frequency and multiplying the incoming signal by the outgoing one makes it very easy to resolve the signal that traveled from different distances $R$ by performing a simple Fourier transform:
 
-$$S(x_r, f = \alpha\tau') = \int S(x_r,t)\exp\left(j2\pi \alpha\tau' t\right)dt$$ $$ = \int d^2x \sigma(\mathbf{x})\frac{1}{R^2}\exp\left(-j2\pi\tau f_0 - j2\pi \alpha\tau^2/2\right)\int \exp\left(j2\pi \alpha(\tau'-\tau)t\right)dt$$
+$$S(x_r, f = \alpha\tau') = \int S(x_r,t)\exp\left(j2\pi \alpha\tau' t\right)dt$$ $$ = \int d^2x \sigma(\vec{x})\frac{1}{R^2}\exp\left(-j2\pi\tau f_0 - j2\pi \alpha\tau^2/2\right)\int \exp\left(j2\pi \alpha(\tau'-\tau)t\right)dt$$
 
-$$= \alpha^{-1}\int d^2x \sigma(\mathbf{x})\frac{1}{R^2}\exp\left(-j2\pi\Phi(\tau)\right)\delta(\tau-\tau')$$
+$$= \alpha^{-1}\int d^2x \sigma(\vec{x})\frac{1}{R^2}\exp\left(-j2\pi\Phi(\tau)\right)\delta(\tau-\tau')$$
 
-$$= \alpha^{-1}\int_{R = c\tau'/2} d^2x \sigma(\mathbf{x})\frac{1}{R^2}\exp\left(-j2\pi\Phi(\tau)\right)$$
+$$= \alpha^{-1}\int_{R = c\tau'/2} d^2x \sigma(\vec{x})\frac{1}{R^2}\exp\left(-j2\pi\Phi(\tau)\right)$$
 
 where $\delta(\tau-\tau')$ is a sign that we sum only over the signal that comes from distance $R = c\tau'/2$, and we denoted
 
@@ -113,7 +113,7 @@ So the pair behaves exactly as a single antenna sitting at the midpoint $\vec d$
 
 For a linear array along the $x$ axis, $\vec u^{\top}\vec d = d_x \sin\theta$ with $\theta$ the target direction measured from the normal of the array: once again a phase *linear* in the scanned coordinate $d_x$, with slope set by $\sin\theta$. Denoting $u = \sin\theta$, the signal from a given distance and radial velocity across the elements is
 
-$$S(d_x, \tau) \approx e^{-j2\pi\Phi(\tau_0)}\exp\left(-j\frac{4\pi}{\lambda} d_x u\right)\int_{R = R_0,\ v_r} d^2x\frac{\sigma(\mathbf{x})}{R_0^2},$$
+$$S(d_x, \tau) \approx e^{-j2\pi\Phi(\tau_0)}\exp\left(-j\frac{4\pi}{\lambda} d_x u\right)\int_{R = R_0,\ v_r} d^2x\frac{\sigma(\vec{x})}{R_0^2},$$
 
 and the Fourier transform over the element positions separates the directions:
 
